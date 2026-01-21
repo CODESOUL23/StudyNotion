@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.label-style {
+  @apply mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5;
+}
+
+.form-style {
+  @apply w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5;
+}
+
