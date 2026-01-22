@@ -65,3 +65,22 @@ export const settingsEndpoints = {
 export const ratingsEndpoints = {
     REVIEWS_DETAILS_API: BASE_URL + "/courses/getAllRating",
 }
+
+// INSTRUCTOR VERIFICATION ENDPOINTS
+export const verificationEndpoints = {
+    REQUEST_VERIFICATION_API: BASE_URL + "/profile/requestInstructorVerification",
+    GET_VERIFICATION_REQUESTS_API: BASE_URL + "/profile/getVerificationRequests",
+    APPROVE_INSTRUCTOR_API: BASE_URL + "/profile/approveInstructor",
+    REJECT_INSTRUCTOR_API: BASE_URL + "/profile/rejectInstructor",
+}
+
+// ADMIN ENDPOINTS
+export const adminEndpoints = {
+    ADMIN_DASHBOARD_API: BASE_URL + "/admin/dashboard",
+    GET_ALL_INSTRUCTORS_API: BASE_URL + "/admin/instructors",
+    GET_INSTRUCTOR_PROFILE_API: BASE_URL + "/admin/instructor-profile",
+    GET_ENROLLED_STUDENTS_API: BASE_URL + "/admin/enrolled-students",
+    GET_DEMO_ENROLLMENTS_API: BASE_URL + "/admin/demo-enrollments",
+    GET_ALL_COURSES_ADMIN_API: BASE_URL + "/admin/courses",
+    DELETE_COURSE_ADMIN_API: BASE_URL + "/admin/delete-course",
+}

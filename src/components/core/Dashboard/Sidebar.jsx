@@ -20,7 +20,7 @@ export default function Sidebar() {
 
   if (profileLoading || authLoading) {
     return (
-      <div className="grid h-[calc(100vh-3.5rem)] min-w-[220px] items-center border-r-[1px] border-r-richblack-700 bg-richblack-800">
+      <div className="grid h-[calc(100vh-4rem)] min-w-[260px] items-center border-r border-richblack-700/50 bg-gradient-to-b from-richblack-800 to-richblack-900">
         <div className="spinner"></div>
       </div>
     )
@@ -28,8 +28,8 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="flex h-[calc(100vh-3.5rem)] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10">
-        <div className="flex flex-col">
+      <div className="flex h-[calc(100vh-4rem)] min-w-[260px] flex-col border-r border-richblack-700/50 bg-gradient-to-b from-richblack-800 to-richblack-900 py-8 shadow-xl shadow-black/20">
+        <div className="flex flex-col px-3 space-y-1">
           {sidebarLinks.map((link) => {
             if (link.type && user?.accountType !== link.type) return null
             return (
@@ -37,8 +37,8 @@ export default function Sidebar() {
             )
           })}
         </div>
-        <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-700" />
-        <div className="flex flex-col">
+        <div className="mx-6 mt-6 mb-6 h-px bg-gradient-to-r from-transparent via-richblack-600 to-transparent" />
+        <div className="flex flex-col px-3 space-y-1">
           <SidebarLink
             link={{ name: "Settings", path: "/dashboard/settings" }}
             iconName="VscSettingsGear"
@@ -54,9 +54,9 @@ export default function Sidebar() {
                 btn2Handler: () => setConfirmationModal(null),
               })
             }
-            className="px-8 py-2 text-sm font-medium text-richblack-300"
+            className="mx-2 px-4 py-3 text-sm font-medium text-richblack-300 hover:text-pink-200 hover:bg-pink-900/20 rounded-lg transition-all duration-200"
           >
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-3">
               <VscSignOut className="text-lg" />
               <span>Logout</span>
             </div>

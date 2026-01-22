@@ -100,3 +100,43 @@ exports.isAdmin = async(req , res , next) => {
         })
     }
 }
+
+// isVerifiedInstructor middleware - checks if instructor has been verified by admin
+exports.isVerifiedInstructor = async(req, res, next) => {
+    try {
+        // First check if user is an instructor
+        if (req.user.accountType !== "Instructor") {
+            return res.status(401).json({
+                success: false,
+                message: "This is a protected route for Instructors"
+            });
+        }
+
+        // Get full user details from database
+        const user = await User.findById(req.user.id);
+        
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // Check if instructor is verified
+        if (!user.isVerified || user.verificationStatus !== "approved") {
+            return res.status(403).json({
+                success: false,
+                message: "Your instructor account is pending verification. Please complete the verification process to create courses.",
+                verificationStatus: user.verificationStatus
+            });
+        }
+
+        next();
+    } catch (err) {
+        console.log("Verification check error:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Error checking instructor verification status"
+        });
+    }
+}

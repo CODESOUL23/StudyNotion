@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { FiClock, FiBarChart2, FiShoppingCart, FiUsers } from "react-icons/fi"
+import { FiClock, FiBarChart2, FiShoppingCart, FiUsers, FiTrash2 } from "react-icons/fi"
 import { HiOutlineAcademicCap } from "react-icons/hi"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
@@ -8,10 +8,11 @@ import { toast } from "react-hot-toast"
 import GetAvgRating from "../../../utils/avgRating"
 import RatingStars from "../../common/RatingStars"
 import { addToCart } from "../../../slices/cartSlice"
-import { enrollAsInstructor } from "../../../services/operations/courseDetailsAPI"
+import { enrollAsInstructor, deleteCourse } from "../../../services/operations/courseDetailsAPI"
 import { ACCOUNT_TYPE } from "../../../utils/constants"
+import ConfirmationModal from "../../common/ConfirmationModal"
 
-function Course_Card({ course, Height }) {
+function Course_Card({ course, Height, onCourseDelete }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.profile)
@@ -19,6 +20,11 @@ function Course_Card({ course, Height }) {
   const { cart } = useSelector((state) => state.cart)
   const [avgReviewCount, setAvgReviewCount] = useState(0)
   const [isEnrolling, setIsEnrolling] = useState(false)
+  const [confirmationModal, setConfirmationModal] = useState(null)
+  const [isDeleting, setIsDeleting] = useState(false)
+  
+  // Check if user is Admin
+  const isAdmin = user?.accountType === ACCOUNT_TYPE.ADMIN
 
   useEffect(() => {
     const count = GetAvgRating(course.ratingAndReviews)
@@ -70,6 +76,19 @@ function Course_Card({ course, Height }) {
     setIsEnrolling(true)
     await enrollAsInstructor(course._id, token, navigate)
     setIsEnrolling(false)
+  }
+
+  const handleDeleteCourse = async () => {
+    setIsDeleting(true)
+    const result = await deleteCourse({ courseId: course._id }, token)
+    if (result) {
+      toast.success("Course deleted successfully")
+      if (onCourseDelete) {
+        onCourseDelete(course._id)
+      }
+    }
+    setIsDeleting(false)
+    setConfirmationModal(null)
   }
 
   // Format price in Indian Rupees
@@ -175,6 +194,27 @@ function Course_Card({ course, Height }) {
             ) : isInstructorAccount ? (
               /* Instructor but course has max co-instructors */
               <span className="text-xs text-richblack-400">Max instructors</span>
+            ) : isAdmin ? (
+              /* Admin - show Delete Course button */
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setConfirmationModal({
+                    text1: "Delete this Course?",
+                    text2: "This will permanently delete the course and all its content. This action cannot be undone.",
+                    btn1Text: isDeleting ? "Deleting..." : "Delete",
+                    btn2Text: "Cancel",
+                    btn1Handler: handleDeleteCourse,
+                    btn2Handler: () => setConfirmationModal(null),
+                  })
+                }}
+                disabled={isDeleting}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-pink-700 hover:bg-pink-800 text-white font-medium transition-all duration-200 text-xs disabled:opacity-50"
+              >
+                <FiTrash2 />
+                Delete
+              </button>
             ) : (
               /* Regular student - show Add to Cart */
               <button
@@ -197,6 +237,7 @@ function Course_Card({ course, Height }) {
           )}
         </div>
       </div>
+      {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
     </Link>
   )
 }

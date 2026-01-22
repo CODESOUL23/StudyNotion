@@ -4,6 +4,7 @@ import Logo2 from "../../../assets/TimeLineLogo/Logo2.svg"
 import Logo3 from "../../../assets/TimeLineLogo/Logo3.svg"
 import Logo4 from "../../../assets/TimeLineLogo/Logo4.svg"
 import timelineImage from "../../../assets/Images/TimelineImage.png"
+import AnimatedSection from "../../common/AnimatedSection"
 
 // Data to prepare the left box
 const timeline = [
@@ -41,22 +42,27 @@ const TimelineSection = () => {
                     {
                         timeline.map((element, index) => {
                             return (
-                                <div className="flex flex-row gap-6" key={index}>
-                                    <div className="w-[50px] h-[50px] bg-white flex items-center">
-                                        <img src={element.Logo}/>
+                                <AnimatedSection 
+                                    key={index} 
+                                    animation="fadeLeft" 
+                                    delay={index * 100}
+                                    className="flex flex-row gap-6"
+                                >
+                                    <div className="w-[50px] h-[50px] bg-white flex items-center rounded-lg shadow-md">
+                                        <img src={element.Logo} alt={element.heading}/>
                                     </div>
                                     <div>
                                         <h2 className="text-[18px]
-                                        font-semibold">{element.heading}</h2>
-                                        <p className="text-base">{element.description}</p>
+                                        font-semibold text-richblack-800">{element.heading}</h2>
+                                        <p className="text-base text-richblack-600">{element.description}</p>
                                     </div>
-                                </div>
+                                </AnimatedSection>
                             )
                         })
                     }
                 </div>
                 {/*Right Vala Box*/}
-                <div className="relative shadow-blue-200">
+                <AnimatedSection animation="fadeRight" delay={200} className="relative shadow-blue-200">
                     <img src={timelineImage} alt="TimeLineImage" className="rounded-sm"/>
                     <div className="absolute w-[70%] bg-caribbeangreen-700 flex justify-center text-white uppercase py-7 translate-x-[22%] translate-y-[-50%]">
                         <div className="flex gap-5 items-center border-r border-caribbeangreen-300 px-6">
@@ -68,7 +74,7 @@ const TimelineSection = () => {
                             <p className="text-caribbeangreen-300 text-sm">Types of Courses</p>
                         </div>
                     </div>
-                </div>
+                </AnimatedSection>
             </div>
         </div>
     );

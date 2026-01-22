@@ -50,13 +50,13 @@ const {
 } = require("../controllers/CourseProgress")
 
 // Importing Middlewares
-const { auth, isInstructor, isStudent, isAdmin } = require("../middleware/auth")
+const { auth, isInstructor, isStudent, isAdmin, isVerifiedInstructor } = require("../middleware/auth")
 
 // ********************************************************************************************************
 //                                      Course routes
 // ********************************************************************************************************
 
-router.post("/createCourse" , auth , isInstructor , createCourse);
+router.post("/createCourse" , auth , isInstructor , isVerifiedInstructor, createCourse);
 router.post("/editCourse" , auth , isInstructor , (req, res, next) => {
     console.log("=== EDIT COURSE ROUTE HIT ===");
     console.log("Body:", req.body);

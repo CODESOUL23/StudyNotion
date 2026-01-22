@@ -4,7 +4,7 @@ import signupImg from "../assets/Images/signup.webp";
 
 const Signup = ({setIsLoggedIn}) => {
     return (
-        <div className="bg-richblack-900 min-h-screen w-full">
+        <div className="bg-gradient-to-b from-richblack-900 via-richblack-900 to-richblack-800 min-h-screen w-full">
             <Template
                 image={signupImg}
                 title="Join the millions learning to code with StudyNotion for free"

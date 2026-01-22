@@ -113,7 +113,17 @@ exports.categoryPageDetails = async (req, res) => {
                                                 })
                                                 .exec();
         
-        // Pick first different category with courses (with null checks)
+        // Collect ALL courses from different categories (for instructors to see all available courses)
+        let allOtherCategoryCourses = [];
+        if (differentCategories && differentCategories.length > 0) {
+            differentCategories.forEach(cat => {
+                if (cat.courses && cat.courses.length > 0) {
+                    allOtherCategoryCourses = [...allOtherCategoryCourses, ...cat.courses];
+                }
+            });
+        }
+        
+        // Also keep the first different category for backward compatibility (students view)
         let differentCategory = null;
         if (differentCategories && differentCategories.length > 0) {
             differentCategory = differentCategories.find(cat => cat.courses && cat.courses.length > 0) || differentCategories[0];
@@ -142,6 +152,7 @@ exports.categoryPageDetails = async (req, res) => {
             data: {
                 selectedCategory,
                 differentCategory,
+                allOtherCategoryCourses,  // All courses from other categories
                 mostSellingCourses: topSellingCourses
             }
         });

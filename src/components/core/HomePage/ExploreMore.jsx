@@ -26,7 +26,7 @@ const ExploreMore = () => {
     }
 
     return (
-        <div>
+        <div className="flex flex-col items-center">
             <div className="text-4xl font-semibold text-center">
                 Unlock the
                 <HighlightText text={"Power of Code"}></HighlightText>
@@ -36,7 +36,7 @@ const ExploreMore = () => {
                 Learn to Build Anything You Can Imagine
             </p>
 
-            <div className="flex rounded-full bg-richblack-800 mt-10 mb-5 border-richblack-100">
+            <div className="flex flex-row gap-5 mx-auto w-max rounded-full bg-richblack-800 mt-10 mb-10 border border-richblack-700 px-1 py-1 relative z-10">
                 {
                     tabsName.map((tab, index) => {
                         return (
@@ -44,7 +44,7 @@ const ExploreMore = () => {
                             ${currentTab === tab ? 
                                 "bg-richblack-900 text-richblack-5 font-medium"
                             : "text-richblack-200" } rounded-full transition-all duration-200 cursor-pointer
-                            hover:bg-richblack-900 hover:text-richblack-5 px-7 py-2 m-[5px]`}
+                            hover:bg-richblack-900 hover:text-richblack-5 px-7 py-2`}
                             key={index}
                             onClick={() => setMyCards(tab)}>
                                 {tab}
@@ -54,25 +54,38 @@ const ExploreMore = () => {
                 }
             </div>
 
-            <div className="flex w-full lg:h-[150px] justify-center mt-24">
-
-                {/*Course Card ka Group*/}
-                <div className="flex absolute justify-center gap-6 z-10">
-                    {
-                        courses.map((course , index) =>{
-                            return(
-                                <CourseCard
+            {/* Course Cards - positioned to overlap into next section */}
+            <div className="hidden lg:flex justify-center gap-9 relative z-50 mt-8 mb-[-140px]">
+                {
+                    courses.map((course, index) => {
+                        return(
+                            <CourseCard
                                 key={index}
-                                cardData = {course}
+                                cardData={course}
                                 currentCard={currentCards}
-                                setCurrentCards={setCurrentCards}>
-                                </CourseCard>
-                            )
-                        })
-                    }
-                </div>
-
+                                setCurrentCards={setCurrentCards}
+                            />
+                        )
+                    })
+                }
             </div>
+            
+            {/* Mobile view - cards stacked normally */}
+            <div className="flex lg:hidden flex-col gap-5 mt-5 mb-10">
+                {
+                    courses.map((course, index) => {
+                        return(
+                            <CourseCard
+                                key={index}
+                                cardData={course}
+                                currentCard={currentCards}
+                                setCurrentCards={setCurrentCards}
+                            />
+                        )
+                    })
+                }
+            </div>
+            
         </div>
     );
 };

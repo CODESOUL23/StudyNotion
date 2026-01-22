@@ -5,6 +5,7 @@ const userRoutes = require("./routes/User");
 const profileRoutes = require("./routes/Profile");
 const paymentRoutes = require("./routes/Payment");
 const courseRoutes = require("./routes/Course");
+const adminRoutes = require("./routes/Admin");
 
 const database = require("./config/database");
 const PORT = process.env.PORT || 4000;
@@ -42,6 +43,7 @@ app.use("/api/v1/user",userRoutes);
 app.use("/api/v1/profile",profileRoutes);
 app.use("/api/v1/payment",paymentRoutes);
 app.use("/api/v1/courses",courseRoutes);
+app.use("/api/v1/admin",adminRoutes);
 
 app.get("/",(req,res)=>{
    return res.status(200).json({

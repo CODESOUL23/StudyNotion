@@ -25,6 +25,14 @@ import EditCourse from "./components/core/Dashboard/EditCourse";
 import Instructor from "./components/core/Dashboard/Instructor";
 import Settings from "./components/core/Dashboard/Settings";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
+import InstructorVerification from "./components/core/Dashboard/InstructorVerification";
+import AdminVerificationRequests from "./components/core/Dashboard/AdminVerificationRequests";
+import AdminDashboard from "./components/core/Dashboard/AdminDashboard";
+import AdminAllInstructors from "./components/core/Dashboard/AdminAllInstructors";
+import AdminEnrolledStudents from "./components/core/Dashboard/AdminEnrolledStudents";
+import AdminDemoStudents from "./components/core/Dashboard/AdminDemoStudents";
+import AdminAllCourses from "./components/core/Dashboard/AdminAllCourses";
+import AdminInstructorProfile from "./components/core/Dashboard/AdminInstructorProfile";
 
 function App() {
   useAuthPersistence();
@@ -63,6 +71,20 @@ function App() {
                       <Route path="/dashboard/add-course" element={<AddCourse />} />
                       <Route path="/dashboard/my-courses" element={<MyCourses />} />
                       <Route path="/dashboard/edit-course/:courseId" element={<EditCourse />} />
+                      <Route path="/dashboard/verification" element={<InstructorVerification />} />
+                    </>
+                  )
+                }
+                {
+                  user?.accountType === ACCOUNT_TYPE.ADMIN && (
+                    <>
+                      <Route path="/dashboard/admin" element={<AdminDashboard />} />
+                      <Route path="/dashboard/admin/verification-requests" element={<AdminVerificationRequests />} />
+                      <Route path="/dashboard/admin/instructors" element={<AdminAllInstructors />} />
+                      <Route path="/dashboard/admin/instructor/:instructorId" element={<AdminInstructorProfile />} />
+                      <Route path="/dashboard/admin/enrolled-students" element={<AdminEnrolledStudents />} />
+                      <Route path="/dashboard/admin/demo-students" element={<AdminDemoStudents />} />
+                      <Route path="/dashboard/admin/courses" element={<AdminAllCourses />} />
                     </>
                   )
                 }

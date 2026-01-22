@@ -24,11 +24,11 @@ const Community = ["Forums", "Chapters", "Events"];
 
 const Footer = () => {
     return (
-        <div className="bg-richblack-800">
-            <div className="flex lg:flex-row gap-8 items-center justify-between w-11/12 max-w-maxContent text-richblack-400 leading-6 mx-auto relative py-14">
-                <div className="border-b w-[100%] flex flex-col lg:flex-row pb-5 border-richblack-700">
+        <div className="bg-gradient-to-b from-richblack-800 to-richblack-900">
+            <div className="flex lg:flex-row gap-8 items-center justify-between w-11/12 max-w-maxContent text-richblack-400 leading-6 mx-auto relative py-16">
+                <div className="border-b w-[100%] flex flex-col lg:flex-row pb-8 border-richblack-700/50">
                     {/* Section 1 */}
-                    <div className="lg:w-[50%] flex flex-wrap flex-row justify-between lg:border-r lg:border-richblack-700 pl-3 lg:pr-5 gap-3">
+                    <div className="lg:w-[50%] flex flex-wrap flex-row justify-between lg:border-r lg:border-richblack-700/50 pl-3 lg:pr-5 gap-3">
                         <div className="w-[30%] flex flex-col gap-3 lg:w-[30%] mb-7 lg:pl-0">
                             <img src={Logo} alt="" className="object-contain" />
                             <h1 className="text-richblack-50 font-semibold text-[16px]">
@@ -39,18 +39,18 @@ const Footer = () => {
                                     return (
                                         <div
                                             key={i}
-                                            className="text-[14px] cursor-pointer hover:text-richblack-50 transition-all duration-200"
+                                            className="text-[14px] cursor-pointer hover:text-yellow-50 transition-all duration-200"
                                         >
                                             <Link to={ele.toLowerCase()}>{ele}</Link>
                                         </div>
                                     );
                                 })}
                             </div>
-                            <div className="flex gap-3 text-lg">
-                                <FaFacebook />
-                                <FaGoogle />
-                                <FaTwitter />
-                                <FaYoutube />
+                            <div className="flex gap-4 text-xl">
+                                <FaFacebook className="hover:text-blue-200 transition-colors duration-200 cursor-pointer" />
+                                <FaGoogle className="hover:text-pink-200 transition-colors duration-200 cursor-pointer" />
+                                <FaTwitter className="hover:text-blue-100 transition-colors duration-200 cursor-pointer" />
+                                <FaYoutube className="hover:text-pink-100 transition-colors duration-200 cursor-pointer" />
                             </div>
                             <div></div>
                         </div>
